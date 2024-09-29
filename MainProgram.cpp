@@ -40,6 +40,6 @@ int main()
     v.incrementQueue();
     v.display();
     
-    cout << "\n" << "Overall average waiting time per vehicle = " << v.calOverallAverage() << " hours" << endl;
+    cout << "Overall average waiting time per vehicle = " << v.calOverallAverage() << " hours" << endl;
     return 0;
 }
