@@ -28,6 +28,7 @@ int main()
         v.getVehicles()[i].display();
     }
 
+
     s.display();
     for (int i = 0; i < NUM_CITIES; i++) {
         cStations[i].display();
@@ -43,10 +44,13 @@ int main()
         v.getVehicles()[i].displayAllocate();
     }
 
-    // cout << endl;
+    cout << endl;
 
 
-    // v.incrementQueue();
-    // v.display();
+    cout << "Location Id" << setw(20) << "Location Name"
+        << setw(25) << "Distance to Sydney" << setw(20)
+        << "no of Chargers"<< setw(20) << "Queue Length" << setw(20) << "Waiting hours" << endl;
+    v.incrementQueue();
+    v.display();
     return 0;
 }

@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <vector>
+#include <iomanip>
 #include <sstream>
 #include "Vehicle.h"
 
@@ -13,7 +14,7 @@ class ChargingAllocation
 private:
     vector<Vehicle> vehicles;
     int chargingQueue[NUM_CITIES] = {0};
-    int queueLength[NUM_CITIES] = {0};
+    double queueLength[NUM_CITIES] = {0};
 
 public:
     ChargingAllocation();
@@ -77,10 +78,13 @@ void ChargingAllocation::incrementQueue()
 
 void ChargingAllocation::display()
 {
+    
+    calQueueLength();
     for (int i = 0; i < NUM_CITIES; i++)
     {
-        cout << i << setw(20) << nameMap[i]
-             << setw(25) << distanceMap[i] << setw(20)
+        ChargingStation cS(i);
+        cout << setw(6) << i << setw(23) << nameMap[i]
+             << setw(19) << cS.distanceToSydney(i) << setw(22)
              << chargersMap[i] << setw(20) << chargingQueue[i]
              << setw(20) << queueLength[i] << endl;
     }
@@ -90,7 +94,8 @@ void ChargingAllocation::calQueueLength()
 {
     for (int i = 0; i < NUM_CITIES; i++)
     {
-        int cityChargingQueue = chargingQueue[i];
+
+        double cityChargingQueue = chargingQueue[i];
         queueLength[i] = 0.5 * (cityChargingQueue / chargersMap[i]);
     }
 }
