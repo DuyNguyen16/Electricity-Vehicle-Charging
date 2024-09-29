@@ -5,22 +5,24 @@
 #include "Constant.h"
 #include "ChargingStation.h"
 
-class Vehicle {
+class Vehicle
+{
 private:
     int vehicleId;
-    int currentCityId = 0; //initialised as 0
-    int destinationId; //1-11
-    int capacityRange; //in kilometers
-    int remainRange; //in kilometers
+    int currentCityId = 0; // initialised as 0
+    int destinationId;     // 1-11
+    int capacityRange;     // in kilometers
+    int remainRange;       // in kilometers
 
-    int cStationOne;
-    int cStaitionTwo;
+    int cStationOne = 0;
+    int cStationTwo = 0;
+
 public:
     Vehicle(int vehicleId, int destinationId, int capacityRange, int remainRange);
-    int getVehicleId() {return vehicleId;}
-    int getDestinationId() {return destinationId;}
-    int getCapacityRange() {return capacityRange;}
-    int getRemainRange() {return remainRange;}
+    int getVehicleId() { return vehicleId; }
+    int getDestinationId() { return destinationId; }
+    int getCapacityRange() { return capacityRange; }
+    int getRemainRange() { return remainRange; }
     void display();
 
     // the farthest city the vehicle with remaining battery
@@ -29,20 +31,23 @@ public:
     void displayAllocate();
 };
 
-Vehicle::Vehicle(int vehicleId, int destinationId, int capacityRange, int remainRange) {
+Vehicle::Vehicle(int vehicleId, int destinationId, int capacityRange, int remainRange)
+{
     this->vehicleId = vehicleId;
     this->destinationId = destinationId;
     this->capacityRange = capacityRange;
     this->remainRange = remainRange;
 }
 
-void Vehicle::display() {
+void Vehicle::display()
+{
     cout << vehicleId << setw(20) << nameMap[0]
-        << setw(25) << nameMap[destinationId] << setw(20)
-        << capacityRange << setw(20) << remainRange << endl;
+         << setw(25) << nameMap[destinationId] << setw(20)
+         << capacityRange << setw(20) << remainRange << endl;
 };
 
-void Vehicle::farthestVTravel() {
+void Vehicle::farthestVTravel()
+{
     ChargingStation cStation(currentCityId);
     // durrent city distance from city minus destination city from sydney
     int cDistance = cStation.distanceToSydney(currentCityId);
@@ -50,39 +55,67 @@ void Vehicle::farthestVTravel() {
 
     int cal = dDistance - cDistance;
 
-    int bestD = 0;
     int best = 0;
+    bool flag = true;
+    int counter = 0;
+    int current = currentCityId;
 
-    if (cal <= remainRange) {
-        best =  destinationId;
-    } else {
-        // check to see which station the vehicle can go to furthest
-        for (int i = currentCityId; i < destinationId; i++) {
-            dDistance = cStation.distanceToSydney(i);
-            int cal = dDistance - cDistance;
-            if (cal <= remainRange) {
-                best = i;
-                
+    if (cal <= remainRange)
+    {
+        best = destinationId;
+    }
+    else
+    {
+        while (flag)
+        {
+            if (counter == 1)
+            {
+                cDistance = cStation.distanceToSydney(current);
             }
+            // check to see which station the vehicle can go to furthest
+            for (int i = current; i < destinationId; i++)
+            {
+                dDistance = cStation.distanceToSydney(i);
+                int cal = dDistance - cDistance;
+                if (cal <= remainRange && counter == 0)
+                {
+                    best = i;
+                }
+                else if (cal <= capacityRange && counter == 1)
+                {
+                    best = i;
+                }
+            }
+
+            if (counter == 0)
+            {
+                cStationOne = best;
+                current = cStationOne;
+                cDistance = cStation.distanceToSydney(destinationId) - cStation.distanceToSydney(current);
+
+                if (capacityRange >= cDistance)
+                {
+                    flag = false;
+                }
+            }
+            else
+            {
+                cStationTwo = best;
+                flag = false;
+            }
+            counter += 1;
         }
     }
-    
-    cStationOne = best;
 }
 
-
-void Vehicle::displayAllocate() {
+void Vehicle::displayAllocate()
+{
     farthestVTravel();
-    int farthest = cStationOne;
-    if (farthest == destinationId) {
-        cout << vehicleId << setw(20) << nameMap[destinationId]
-            << setw(25) << capacityRange << setw(20)
-            << remainRange << setw(20) << "----" << endl;
-    } else {
-        cout << vehicleId << setw(20) << nameMap[destinationId]
-            << setw(25) << capacityRange << setw(20)
-            << remainRange << setw(20) << nameMap[farthest] << endl;
-    }
+
+    cout << vehicleId << setw(20) << nameMap[destinationId]
+         << setw(25) << capacityRange << setw(20)
+         << remainRange << setw(20) << (cStationOne == 0 ? "----" : nameMap[cStationOne]) 
+         << setw(20) << (cStationTwo == 0 ? "----" : nameMap[cStationTwo])  << endl;
 }
 
 #endif

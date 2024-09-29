@@ -4,6 +4,7 @@
 #include "Stations.h"
 #include "Vehicle.h"
 #include "ChargingAllocation.h"
+#include "DemandGenerator/DemandGenerator.h"
 
 using namespace std;
 
@@ -11,6 +12,11 @@ int main()
 {
     Stations s;
     ChargingAllocation v;
+    DemandGenerator dg;
+
+    dg.generateDemands();
+
+
     vector<ChargingStation> cStations = s.getCStation();
     vector<Vehicle> vehicles = v.getVehicles();
 
