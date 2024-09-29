@@ -29,7 +29,7 @@ void DemandGenerator::generateDemands() {
     int numDemands = MIN_DEMANDS + rand() % (MAX_DEMANDS - MIN_DEMANDS + 1);
     ofstream fout;
     fout.open("./DemandGenerator/myChargingDemands.txt");
-    for (int i = 1; i < numDemands; i++) {
+    for (int i = 200; i < numDemands + 200; i++) {
         // get the vehicleid
         vehicleId = i;
         // get the destinationId randomly (from 0 to NUM_CITIES)
