@@ -25,7 +25,7 @@ public:
     int getRemainRange() { return remainRange; }
     int getCStationOne() { return cStationOne; }
     int getCStationTwo() { return cStationTwo; }
-    void display();
+    void displayVehicleInfo();
 
     // the farthest city the vehicle with remaining battery
     void farthestVTravel();
@@ -41,7 +41,7 @@ Vehicle::Vehicle(int vehicleId, int destinationId, int capacityRange, int remain
     this->remainRange = remainRange;
 }
 
-void Vehicle::display()
+void Vehicle::displayVehicleInfo()
 {
     cout << setw(6) << vehicleId << setw(20) << nameMap[0]
          << setw(23) << nameMap[destinationId] << setw(16)
@@ -118,5 +118,4 @@ void Vehicle::displayAllocate()
          << remainRange << setw(20) << (cStationOne == 0 ? "----" : nameMap[cStationOne]) 
          << setw(20) << (cStationTwo == 0 ? "----" : nameMap[cStationTwo])  << endl;
 }
-
 #endif

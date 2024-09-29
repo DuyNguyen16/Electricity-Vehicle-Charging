@@ -5,6 +5,7 @@
 #include "Vehicle.h"
 #include "ChargingAllocation.h"
 #include "DemandGenerator/DemandGenerator.h"
+#include "DisplayText.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ int main()
     Stations s;
     ChargingAllocation v;
     DemandGenerator dg;
+    DisplayText dt;
 
     dg.generateDemands();
 
@@ -20,36 +22,22 @@ int main()
     vector<ChargingStation> cStations = s.getCStation();
     vector<Vehicle> vehicles =  v.getVehicles();
 
-    cout << "Vehicle Information:" << endl;
-    cout << "Vehicle Id" << setw(16) << "Origin"
-        << setw(25) << "Destination" << setw(20)
-        << "Capacity Range"<< setw(20) << "Remaining Range" << endl;
+    dt.displayVehicleInfo();
     for (int i = 0; i < vehicles.size(); i++) {
-        v.getVehicles()[i].display();
+        v.getVehicles()[i].displayVehicleInfo();
     }
 
-
-    s.display();
+    dt.displayChargingStation();
     for (int i = 0; i < NUM_CITIES; i++) {
         cStations[i].display();
     }
-    cout << endl;
 
-
-    cout << "Initial Charging Allocation ..." << endl;
-    cout << "Vehicle Id" << setw(20) << "Destination"
-        << setw(25) << "Capacity Range" << setw(20)
-        << "Remaining Range"<< setw(20) << "First recharge" << setw(20) << "Second recharge" << endl;
+    dt.displayAllocate();
     for (int i = 0; i < vehicles.size(); i++) {
         v.getVehicles()[i].displayAllocate();
     }
 
-    cout << endl;
-
-
-    cout << "Location Id" << setw(20) << "Location Name"
-        << setw(25) << "Distance to Sydney" << setw(20)
-        << "no of Chargers"<< setw(20) << "Queue Length" << setw(20) << "Waiting hours" << endl;
+    dt.displayChargingQueue();
     v.incrementQueue();
     v.display();
     return 0;
