@@ -39,5 +39,7 @@ int main()
     dt.displayChargingQueue();
     v.incrementQueue();
     v.display();
+    
+    cout << "\n" << "Overall average waiting time per vehicle = " << v.calOverallAverage() << " hours" << endl;
     return 0;
 }

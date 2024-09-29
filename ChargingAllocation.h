@@ -13,15 +13,16 @@ class ChargingAllocation
 {
 private:
     vector<Vehicle> vehicles;
-    int chargingQueue[NUM_CITIES] = {0};
-    double queueLength[NUM_CITIES] = {0};
+    int queueLength[NUM_CITIES] = {0};
+    double waitingHours[NUM_CITIES] = {0};
 
 public:
     ChargingAllocation();
     vector<Vehicle> &getVehicles() { return vehicles; }
     void incrementQueue();
     void display();
-    void calQueueLength();
+    void calwaitingHours();
+    double calOverallAverage();
 };
 
 ChargingAllocation::ChargingAllocation()
@@ -66,12 +67,12 @@ void ChargingAllocation::incrementQueue()
 
         if (one != 0)
         {
-            chargingQueue[one] += 1;
+            queueLength[one] += 1;
         }
 
         if (two != 0)
         {
-            chargingQueue[two] += 1;
+            queueLength[two] += 1;
         }
     }
 }
@@ -79,7 +80,7 @@ void ChargingAllocation::incrementQueue()
 void ChargingAllocation::display()
 {
     
-    calQueueLength();
+    calwaitingHours();
     for (int i = 0; i < NUM_CITIES; i++)
     {
         ChargingStation cS(i);
@@ -88,19 +89,35 @@ void ChargingAllocation::display()
         cout.precision(2);
         cout << setw(6) << i << setw(23) << nameMap[i]
              << setw(19) << cS.distanceToSydney(i) << setw(22)
-             << chargersMap[i] << setw(20) << chargingQueue[i]
-             << setw(20) << queueLength[i] << endl;
+             << chargersMap[i] << setw(20) << queueLength[i]
+             << setw(20) << waitingHours[i] << endl;
     }
 }
 
-void ChargingAllocation::calQueueLength()
+void ChargingAllocation::calwaitingHours()
 {
     for (int i = 0; i < NUM_CITIES; i++)
     {
 
-        double cityChargingQueue = chargingQueue[i];
-        queueLength[i] = 0.5 * (cityChargingQueue / chargersMap[i]);
+        double cityqueueLength = queueLength[i];
+        waitingHours[i] = 0.5 * (cityqueueLength / chargersMap[i]);
     }
+}
+
+double ChargingAllocation::calOverallAverage() {
+    double overallAvg = 0;
+    double n = 0;
+
+    for (int i = 0; i < NUM_CITIES; i++) {
+        n = n + queueLength[i];
+    }
+
+
+    for (int i = 0; i < NUM_CITIES; i++) {
+        overallAvg = overallAvg + (queueLength[i] * waitingHours[i]);
+    }
+    n = ((1/n) * overallAvg);
+    return n;
 }
 
 #endif
