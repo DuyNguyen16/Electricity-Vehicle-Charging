@@ -83,6 +83,9 @@ void ChargingAllocation::display()
     for (int i = 0; i < NUM_CITIES; i++)
     {
         ChargingStation cS(i);
+        cout.setf(ios::fixed);
+        cout.setf(ios::showpoint);
+        cout.precision(2);
         cout << setw(6) << i << setw(23) << nameMap[i]
              << setw(19) << cS.distanceToSydney(i) << setw(22)
              << chargersMap[i] << setw(20) << chargingQueue[i]
