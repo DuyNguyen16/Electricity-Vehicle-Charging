@@ -4,8 +4,8 @@
 
 #include <cstdlib>
 #include <ctime>
-#include "../Constant.h"
-#include<fstream>
+#include "../Constant/Constant.h"
+#include <fstream>
 
 using namespace std;
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "ChargingStation.h"
-#include "Stations.h"
+#include "./Station/ChargingStation.h"
+#include "./Station/Stations.h"
 #include "Vehicle.h"
 #include "ChargingAllocation.h"
 #include "DemandGenerator/DemandGenerator.h"
@@ -17,7 +17,6 @@ int main()
     DisplayText dt;
 
     dg.generateDemands();
-
 
     vector<ChargingStation> cStations = s.getCStation();
     vector<Vehicle> vehicles =  v.getVehicles();
