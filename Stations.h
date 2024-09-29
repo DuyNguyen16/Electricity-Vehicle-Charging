@@ -20,7 +20,7 @@ vector<ChargingStation> &Stations::getCStation() {
     return cStations;
 }
 
-void ChargingStation::display() {
+void Stations::display() {
     cout << "Charging Station Information:" << endl;
     cout << "Location Id" << setw(20) << "Location Name"
         << setw(25) << "Distance to Sydney" << setw(20)

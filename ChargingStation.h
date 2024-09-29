@@ -14,10 +14,10 @@ private:
     string cityName;
     int distanceToLastCity;
     int numberOfChargers;
-
 public:
     ChargingStation(int i);
     void display();
+    int distanceToSydney(int cityId);
 };
 
 ChargingStation::ChargingStation(int i)
@@ -30,10 +30,18 @@ ChargingStation::ChargingStation(int i)
 
 void ChargingStation::display()
 {
-
     cout << setw(5) << cityId << setw(25) << cityName
          << setw(17) << distanceToLastCity << setw(22)
          << numberOfChargers << endl;
+}
+
+int ChargingStation::distanceToSydney(int cityId) {
+    int cal = 0;
+    for (int i = 0; i < cityId + 1; i++) {
+        cal = cal + distanceMap[i];
+    }
+    
+    return cal;
 }
 
 #endif
