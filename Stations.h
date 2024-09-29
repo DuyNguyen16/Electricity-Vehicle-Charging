@@ -8,6 +8,7 @@ private:
     vector<ChargingStation> cStations;
 public:
     vector<ChargingStation> &getCStation();
+    void display();
 };
 
 vector<ChargingStation> &Stations::getCStation() {
@@ -19,5 +20,11 @@ vector<ChargingStation> &Stations::getCStation() {
     return cStations;
 }
 
+void ChargingStation::display() {
+    cout << "Charging Station Information:" << endl;
+    cout << "Location Id" << setw(20) << "Location Name"
+        << setw(25) << "Distance to Sydney" << setw(20)
+        << "no of Chargers" << endl;
+}
 
 #endif

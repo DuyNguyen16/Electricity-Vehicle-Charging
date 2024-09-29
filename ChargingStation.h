@@ -30,9 +30,6 @@ ChargingStation::ChargingStation(int i)
 
 void ChargingStation::display()
 {
-    // cout << "Location Id" << setw(20) << "Location Name"
-    //      << setw(20) << "Distance to Sydney" << setw(20)
-    //      << "no of Chargers" << endl;
 
     cout << setw(5) << cityId << setw(25) << cityName
          << setw(17) << distanceToLastCity << setw(22)
