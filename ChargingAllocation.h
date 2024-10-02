@@ -88,9 +88,9 @@ void ChargingAllocation::display()
         cout.setf(ios::showpoint);
         cout.precision(2);
         cout << setw(6) << i << setw(23) << nameMap[i]
-             << setw(19) << cS.distanceToSydney(i) << setw(22)
-             << chargersMap[i] << setw(20) << queueLength[i]
-             << setw(20) << waitingHours[i] << endl;
+            << setw(19) << cS.distanceToSydney(i) << setw(22)
+            << chargersMap[i] << setw(20) << queueLength[i]
+            << setw(20) << waitingHours[i] << endl;
     }
 }
 
