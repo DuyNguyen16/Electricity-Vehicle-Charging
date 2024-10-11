@@ -14,6 +14,8 @@ private:
     string cityName;
     int distanceToLastCity;
     int numberOfChargers;
+
+    int NumOfQueue;
 public:
     ChargingStation(int i);
     void display();

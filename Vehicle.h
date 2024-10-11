@@ -28,9 +28,11 @@ public:
     void displayVehicleInfo();
 
     // the farthest city the vehicle with remaining battery
-    void farthestVTravel();
+    void furtherCanTravel();
 
     void displayAllocate();
+
+    int distanceBetween(int currentD, int destinationD);
 };
 
 Vehicle::Vehicle(int vehicleId, int destinationId, int capacityRange, int remainRange)
@@ -48,7 +50,7 @@ void Vehicle::displayVehicleInfo()
          << capacityRange << setw(20) << remainRange << endl;
 };
 
-void Vehicle::farthestVTravel()
+void Vehicle::furtherCanTravel()
 {
     ChargingStation cStation(currentCityId);
     // durrent city distance from city minus destination city from sydney
@@ -112,10 +114,18 @@ void Vehicle::farthestVTravel()
 
 void Vehicle::displayAllocate()
 {
-    farthestVTravel();
+    furtherCanTravel();
     cout << setw(6) << vehicleId << setw(23) << nameMap[destinationId]
          << setw(20) << capacityRange << setw(20)
          << remainRange << setw(20) << (cStationOne == 0 ? "----" : nameMap[cStationOne]) 
          << setw(20) << (cStationTwo == 0 ? "----" : nameMap[cStationTwo])  << endl;
 }
+
+
+int Vehicle::distanceBetween(int currentD, int destinationD) {
+
+}
+
+
+
 #endif
