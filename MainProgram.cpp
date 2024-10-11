@@ -33,6 +33,7 @@ int main()
 
     dt.displayAllocate();
     for (int i = 0; i < vehicles.size(); i++) {
+        v.getVehicles()[i].furtherCanTravel();
         v.getVehicles()[i].displayAllocate();
     }
 

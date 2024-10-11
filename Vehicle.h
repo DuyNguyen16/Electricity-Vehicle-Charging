@@ -114,7 +114,6 @@ void Vehicle::furtherCanTravel()
 
 void Vehicle::displayAllocate()
 {
-    furtherCanTravel();
     cout << setw(6) << vehicleId << setw(23) << nameMap[destinationId]
          << setw(20) << capacityRange << setw(20)
          << remainRange << setw(20) << (cStationOne == 0 ? "----" : nameMap[cStationOne]) 
