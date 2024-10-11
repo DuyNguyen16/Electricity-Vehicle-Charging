@@ -14,30 +14,30 @@ int main()
     Stations s;
     ChargingAllocation v;
     DemandGenerator dg;
-    DisplayText dt;
+    DisplayText displayText;
 
     dg.generateDemands();
 
     vector<ChargingStation> cStations = s.getCStation();
     vector<Vehicle> vehicles =  v.getVehicles();
 
-    dt.displayVehicleInfo();
+    displayText.displayVehicleInfo();
     for (int i = 0; i < vehicles.size(); i++) {
         v.getVehicles()[i].displayVehicleInfo();
     }
 
-    dt.displayChargingStation();
+    displayText.displayChargingStation();
     for (int i = 0; i < NUM_CITIES; i++) {
         cStations[i].display();
     }
 
-    dt.displayAllocate();
+    displayText.displayAllocate();
     for (int i = 0; i < vehicles.size(); i++) {
         v.getVehicles()[i].furtherCanTravel();
         v.getVehicles()[i].displayAllocate();
     }
 
-    dt.displayChargingQueue();
+    displayText.displayChargingQueue();
     v.incrementQueue();
     v.display();
     

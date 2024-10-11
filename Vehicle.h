@@ -122,7 +122,7 @@ void Vehicle::displayAllocate()
 
 
 int Vehicle::distanceBetween(int currentD, int destinationD) {
-
+    
 }
 
 
