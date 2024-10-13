@@ -19,21 +19,23 @@ int main()
     dg.generateDemands();
 
     vector<ChargingStation> cStations = s.getCStation();
-    vector<Vehicle> vehicles =  v.getVehicles();
-
+    vector<Vehicle> vehicles = v.getVehicles();
 
     displayText.displayVehicleInfo();
-    for (int i = 0; i < vehicles.size(); i++) {
+    for (int i = 0; i < vehicles.size(); i++)
+    {
         v.getVehicles()[i].displayVehicleInfo();
     }
 
     displayText.displayChargingStation();
-    for (int i = 0; i < NUM_CITIES; i++) {
+    for (int i = 0; i < NUM_CITIES; i++)
+    {
         cStations[i].display();
     }
 
     displayText.displayAllocate();
-    for (int i = 0; i < vehicles.size(); i++) {
+    for (int i = 0; i < vehicles.size(); i++)
+    {
         v.getVehicles()[i].furtherCanTravel();
         v.getVehicles()[i].displayAllocate();
     }
@@ -41,10 +43,11 @@ int main()
     displayText.displayChargingQueue();
     v.incrementQueue();
     v.display();
-    
+
     cout << "Overall average waiting time per vehicle = " << v.calOverallAverage() << " hours" << endl;
 
-    v.getVehicles()[0].furthestDisId(0, 11, 349, 367);
-    
+    v.getVehicles()[0].furthestDisId();
+    v.getVehicles()[1].furthestDisId();
+
     return 0;
 }
