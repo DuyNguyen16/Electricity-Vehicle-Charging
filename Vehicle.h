@@ -127,6 +127,7 @@ void Vehicle::displayAllocate()
 
 vector<int> Vehicle::furthestDisId()
 {
+    clear();
     ChargingStation cStation(currentCityId);
     // =======================================================
     // minimum second station have to travel
@@ -138,13 +139,14 @@ vector<int> Vehicle::furthestDisId()
     int minFirstStationDes = 0;
     int maxFirstId = 0;
     int maxSecondId = 0;
-
     if (cStation.distanceToSydney(destinationId) > remainRange)
     {
         if (stationCount() == 2)
         {
+            cout << "DDDDDDDDDDDDDDDDDDDD" <<endl;
             for (int i = NUM_CITIES; i >= 0; i--)
             {
+                //minimum second station have to travel
                 if (min <= cStation.distanceToSydney(i))
                 {
                     minSecStationDes = cStation.distanceToSydney(i);
@@ -155,7 +157,7 @@ vector<int> Vehicle::furthestDisId()
 
             // =======================================================
             // minimum first station have to travel
-            int min2 = minSecStationDes - remainRange;
+            int min2 = minSecStationDes - capacityRange;
             for (int i = NUM_CITIES; i >= 0; i--)
             {
                 if (min2 <= cStation.distanceToSydney(i))
@@ -194,14 +196,13 @@ vector<int> Vehicle::furthestDisId()
                     maxSecondId = i;
                 }
             }
-
             maxSecondId = myRandom(minSecondId, maxSecondId);
+            cStationOne = maxFirstId;
+            cStationTwo = maxSecondId;
             // =======================================================
-
-            cout << maxFirstId << " " << maxSecondId << endl;
         }
         else {
-            min = cStation.distanceToSydney(destinationId) - remainRange;
+            min = cStation.distanceToSydney(destinationId) - capacityRange;
 
             for (int i = NUM_CITIES; i >= 0; i--)
             {
@@ -224,7 +225,9 @@ vector<int> Vehicle::furthestDisId()
                 }
             }
 
-            return {minFirstId, maxFirstId};
+            minFirstId = myRandom(minFirstId, maxFirstId);
+            cStationOne = minFirstId;
+            return {minFirstId};
         }
     }
 
@@ -233,7 +236,6 @@ vector<int> Vehicle::furthestDisId()
 
 int Vehicle::myRandom(int min, int max)
 {
-    srand(time(0));
     int cal = min + (rand() % (max - min + 1));
     return cal;
 };
@@ -241,17 +243,29 @@ int Vehicle::myRandom(int min, int max)
 int Vehicle::stationCount()
 {
     ChargingStation cStation(currentCityId);
-    int DesDistance = cStation.distanceToSydney(destinationId);
-    int totalvehicleDis = remainRange + capacityRange;
+    // int DesDistance = cStation.distanceToSydney(destinationId);
+    // int totalvehicleDis = remainRange + capacityRange;
 
-    if (totalvehicleDis < DesDistance)
-    {
-        return 2;
+    // if (totalvehicleDis < DesDistance)
+    // {
+    //     return 2;
+    // }
+    // else
+    // {
+    //     return 1;
+    // }
+    int count = 0;
+    int id;
+    for (int i = 0; i < NUM_CITIES; i++) {
+        if (cStation.distanceToSydney(i) <= remainRange) {
+            id = i;
+        } else {
+            count = 1;
+            break;
+        }
     }
-    else
-    {
-        return 1;
-    }
+
+    
 }
 
 

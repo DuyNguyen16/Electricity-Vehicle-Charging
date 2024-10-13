@@ -24,24 +24,12 @@ public:
     void calwaitingHours();
     double calOverallAverage();
 
-    void monteCarlo();
+    // Deep copy constructor
+    ChargingAllocation(const ChargingAllocation& other);
+
+    // Deep copy assignment operator
+    ChargingAllocation& operator=(const ChargingAllocation& other);
 };
-
-
-void ChargingAllocation::monteCarlo() {
-    const int numSimulations = 5000;
-    vector<double> results;
-
-    for (int i = 0; i < numSimulations; i++) {
-        vector<Vehicle> vehiclesCopy = vehicles;
-        for (int vehicle = 0; vehicle < vehicles.size(); vehicle++) {
-            
-        }
-    }
-
-
-}
-
 
 
 ChargingAllocation::ChargingAllocation()
@@ -98,8 +86,6 @@ void ChargingAllocation::incrementQueue()
 
 void ChargingAllocation::display()
 {
-    
-    calwaitingHours();
     for (int i = 0; i < NUM_CITIES; i++)
     {
         ChargingStation cS(i);
@@ -117,13 +103,13 @@ void ChargingAllocation::calwaitingHours()
 {
     for (int i = 0; i < NUM_CITIES; i++)
     {
-
         double cityqueueLength = queueLength[i];
         waitingHours[i] = 0.5 * (cityqueueLength / chargersMap[i]);
     }
 }
 
 double ChargingAllocation::calOverallAverage() {
+    calwaitingHours();
     double overallAvg = 0;
     double n = 0;
 
@@ -139,4 +125,31 @@ double ChargingAllocation::calOverallAverage() {
     return n;
 }
 
+
+// Deep copy constructor
+ChargingAllocation::ChargingAllocation(const ChargingAllocation& other) {
+    vehicles = other.vehicles;  // Deep copy vector of vehicles
+
+    // Copy queue length and waiting hours
+    for (int i = 0; i < NUM_CITIES; i++) {
+        queueLength[i] = other.queueLength[i];
+        waitingHours[i] = other.waitingHours[i];
+    }
+}
+
+// Deep copy assignment operator
+ChargingAllocation& ChargingAllocation::operator=(const ChargingAllocation& other) {
+    if (this == &other) return *this;  // Check for self-assignment
+
+    // Deep copy vector of vehicles
+    vehicles = other.vehicles;
+
+    // Copy queue length and waiting hours
+    for (int i = 0; i < NUM_CITIES; i++) {
+        queueLength[i] = other.queueLength[i];
+        waitingHours[i] = other.waitingHours[i];
+    }
+
+    return *this;
+}
 #endif
