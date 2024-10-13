@@ -23,7 +23,26 @@ public:
     void display();
     void calwaitingHours();
     double calOverallAverage();
+
+    void monteCarlo();
 };
+
+
+void ChargingAllocation::monteCarlo() {
+    const int numSimulations = 5000;
+    vector<double> results;
+
+    for (int i = 0; i < numSimulations; i++) {
+        vector<Vehicle> vehiclesCopy = vehicles;
+        for (int vehicle = 0; vehicle < vehicles.size(); vehicle++) {
+            
+        }
+    }
+
+
+}
+
+
 
 ChargingAllocation::ChargingAllocation()
 {

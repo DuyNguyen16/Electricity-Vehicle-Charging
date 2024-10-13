@@ -32,7 +32,15 @@ public:
 
     void displayAllocate();
 
-    int distanceBetween(int currentD, int destinationD);
+    int furthestDisId(int currentId, int desId, int reRange, int capRange);
+
+    void clear() {
+        cStationOne = 0;
+        cStationTwo = 0;
+    }
+
+    void random();
+    int myRandom(int min, int max);
 };
 
 Vehicle::Vehicle(int vehicleId, int destinationId, int capacityRange, int remainRange)
@@ -54,33 +62,29 @@ void Vehicle::furtherCanTravel()
 {
     ChargingStation cStation(currentCityId);
     // durrent city distance from city minus destination city from sydney
-    int cDistance = cStation.distanceToSydney(currentCityId);
-    int dDistance = cStation.distanceToSydney(destinationId);
+    int curDistance = cStation.distanceToSydney(currentCityId);
+    int desDistance = cStation.distanceToSydney(destinationId);
 
-    int cal = dDistance - cDistance;
+    int cal = desDistance - curDistance;
 
     int best = 0;
     bool flag = true;
     int counter = 0;
     int current = currentCityId;
 
-    if (cal <= remainRange)
-    {
-        best = destinationId;
-    }
-    else
+    if (cal > remainRange)
     {
         while (flag)
         {
             if (counter == 1)
             {
-                cDistance = cStation.distanceToSydney(current);
+                curDistance = cStation.distanceToSydney(current);
             }
             // check to see which station the vehicle can go to furthest
             for (int i = current; i < destinationId; i++)
             {
-                dDistance = cStation.distanceToSydney(i);
-                int cal = dDistance - cDistance;
+                desDistance = cStation.distanceToSydney(i);
+                int cal = desDistance - curDistance;
                 if (cal <= remainRange && counter == 0)
                 {
                     best = i;
@@ -95,9 +99,9 @@ void Vehicle::furtherCanTravel()
             {
                 cStationOne = best;
                 current = cStationOne;
-                cDistance = cStation.distanceToSydney(destinationId) - cStation.distanceToSydney(current);
+                curDistance = cStation.distanceToSydney(destinationId) - cStation.distanceToSydney(current);
 
-                if (capacityRange >= cDistance)
+                if (capacityRange >= curDistance)
                 {
                     flag = false;
                 }
@@ -108,6 +112,7 @@ void Vehicle::furtherCanTravel()
                 flag = false;
             }
             counter += 1;
+
         }
     }
 }
@@ -121,10 +126,105 @@ void Vehicle::displayAllocate()
 }
 
 
-int Vehicle::distanceBetween(int currentD, int destinationD) {
-    
+int Vehicle::furthestDisId(int currentId, int desId, int reRange, int capRange) {
+    ChargingStation cStation(currentCityId);
+    // =======================================================
+    // minimum second station have to travel
+    int min =  cStation.distanceToSydney(desId) - capRange;
+    int minId = 0;
+    int minSecStationDes = 0;
+
+    for (int i = NUM_CITIES; i >= 0; i-- ) {
+        if (min <= cStation.distanceToSydney(i)) {
+            minSecStationDes = cStation.distanceToSydney(i);
+            minId = i;
+        }
+    }
+    // =======================================================
+
+
+    // =======================================================
+    // minimum first station have to travel
+    int min2 = minSecStationDes - reRange;
+    int minFirstStationDes = 0;
+    for (int i = NUM_CITIES; i >= 0; i-- ) {
+        if (min2 <= cStation.distanceToSydney(i)) {
+            minFirstStationDes = cStation.distanceToSydney(i);
+        }
+    }
+    // =======================================================
+
+
+    // =======================================================
+    // durrent city distance from city minus destination city from sydney
+    int curDistance = cStation.distanceToSydney(currentId);
+    int firstBest = 0;
+
+    // maximum first station can travel
+    for (int i = currentId; i < desId; i++) {
+        int desDistance = cStation.distanceToSydney(i);
+        int cal = desDistance - curDistance;
+        if (cal <= reRange) {
+            firstBest = i;
+        }
+    }
+    // =======================================================
+
+
+    // =======================================================
+    // maximum second station can travel
+    curDistance = cStation.distanceToSydney(firstBest);
+    int secondBest = 0;
+
+    for (int i = firstBest; i < desId; i++) {
+        int desDistance = cStation.distanceToSydney(i);
+        int cal = desDistance - curDistance;
+        if (cal <= capRange) {
+            secondBest = i;
+        }
+    }
+
+    secondBest = myRandom(minId, secondBest);
+
+    // =======================================================
+
+
+    cout << firstBest << " " << secondBest << endl;
+
+    return 0;
 }
 
 
+void Vehicle::random() {
+    // clear();
+    // ChargingStation cStation(currentCityId);
+    // int curDistance = cStation.distanceToSydney(currentCityId);
+    // int desDistance = cStation.distanceToSydney(destinationId);
+
+    // int cal = desDistance - curDistance;
+    // srand(time(0));
+    // // check if vehicle needs charging or not
+    // //  first station
+    // if (cal > remainRange) { 
+    //     int firstStationId = furthestDisId(currentCityId, destinationId, remainRange);
+    //     cStationOne = rand() % (firstStationId + 1);  // Generates a number between 0 and 4
+
+    //     // second station
+    //     curDistance = cStation.distanceToSydney(firstStationId);
+    //     cal = desDistance - curDistance;
+    //     if (cal > capacityRange) {
+    //         int secondStationId = furthestDisId(firstStationId, destinationId, capacityRange);
+    //         cStationTwo = cStationOne + 1 + (rand() % (secondStationId - cStationOne + 1));
+    //     }
+    // }
+
+    cout << cStationOne << cStationTwo << endl;
+}
+
+int Vehicle::myRandom(int min, int max) {
+    srand(time(0));
+    int cal = min + 1 + (rand() % (max - min + 1));
+    return cal;
+};
 
 #endif

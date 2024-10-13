@@ -21,6 +21,7 @@ int main()
     vector<ChargingStation> cStations = s.getCStation();
     vector<Vehicle> vehicles =  v.getVehicles();
 
+
     displayText.displayVehicleInfo();
     for (int i = 0; i < vehicles.size(); i++) {
         v.getVehicles()[i].displayVehicleInfo();
@@ -42,5 +43,8 @@ int main()
     v.display();
     
     cout << "Overall average waiting time per vehicle = " << v.calOverallAverage() << " hours" << endl;
+
+    v.getVehicles()[0].furthestDisId(0, 11, 349, 367);
+    
     return 0;
 }
