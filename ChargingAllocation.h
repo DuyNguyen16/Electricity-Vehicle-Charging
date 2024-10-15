@@ -72,12 +72,12 @@ void ChargingAllocation::incrementQueue()
         int one = vehicles[i].getCStationOne();
         int two = vehicles[i].getCStationTwo();
 
-        if (one != 0)
+        if (one != -1)
         {
             queueLength[one] += 1;
         }
 
-        if (two != 0)
+        if (two != -1)
         {
             queueLength[two] += 1;
         }

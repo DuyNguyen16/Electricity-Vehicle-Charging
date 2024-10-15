@@ -11,6 +11,7 @@ struct DisplayText {
     void displayChargingStation();
     void displayAllocate();
     void displayChargingQueue();
+    void displayMonteCharloText();
 };
 
 
@@ -44,6 +45,11 @@ void DisplayText::displayChargingQueue() {
     cout << "Location Id" << setw(20) << "Location Name"
         << setw(25) << "Distance to Sydney" << setw(20)
         << "no of Chargers"<< setw(20) << "Queue Length" << setw(20) << "Waiting hours" << endl;
+}
+
+
+void DisplayText::displayMonteCharloText() {
+    cout << "Balancing waiting queues with Monte-Carlo simulations." << endl << "Number of simulations = 5000" << endl;
 }
 
 #endif
