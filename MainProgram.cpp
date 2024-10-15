@@ -51,6 +51,7 @@ int main()
 
     cout << "Overall average waiting time per vehicle = " << v.calOverallAverage() << " hours" << endl;
     cout << "----------------------------------------------------------------------------------------" << endl;
+    displayText.displayMonteCharloText();
 
     ChargingAllocation aCopy = aCopy2;
     double best = 100000.00;
@@ -71,7 +72,7 @@ int main()
             best = overallAvg;
             aCopy2 = temp;
             
-            cout << "Overall average waiting time per vehicle = " << overallAvg << " hours" << endl;
+            cout << "Improved overall average waiting time per vehicle = " << overallAvg << " hours at simulation " << i << endl;
         }
     }
 
