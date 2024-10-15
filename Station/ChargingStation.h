@@ -22,6 +22,7 @@ public:
     int distanceToSydney(int cityId);
 };
 
+// constructor to initialise the data upon object created
 ChargingStation::ChargingStation(int i)
 {
     cityId = i;
@@ -30,6 +31,7 @@ ChargingStation::ChargingStation(int i)
     numberOfChargers = chargersMap[i];
 };
 
+// display the information of the city
 void ChargingStation::display()
 {
     cout << setw(5) << cityId << setw(25) << cityName
@@ -37,6 +39,7 @@ void ChargingStation::display()
          << numberOfChargers << endl;
 }
 
+// Function to calculate the total distance to sydney
 int ChargingStation::distanceToSydney(int cityId) {
     int cal = 0;
     for (int i = 0; i < cityId + 1; i++) {
