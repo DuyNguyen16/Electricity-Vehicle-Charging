@@ -22,7 +22,7 @@ public:
     int getRemRangeRand();
 };
 
-
+// generate random charging demands
 void DemandGenerator::generateDemands() {
     // select a random number of demands betwen 150 and 200
     srand(time(0) + rand());
