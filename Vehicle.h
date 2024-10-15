@@ -143,7 +143,6 @@ vector<int> Vehicle::furthestDisId()
     {
         if (stationCount() == 2)
         {
-            cout << "DDDDDDDDDDDDDDDDDDDD" <<endl;
             for (int i = NUM_CITIES; i >= 0; i--)
             {
                 //minimum second station have to travel
@@ -256,16 +255,26 @@ int Vehicle::stationCount()
     // }
     int count = 0;
     int id;
-    for (int i = 0; i < NUM_CITIES; i++) {
+    int dis = 0;
+    for (int i = 0; i < destinationId; i++) {
         if (cStation.distanceToSydney(i) <= remainRange) {
             id = i;
+            dis = cStation.distanceToSydney(i);
         } else {
             count = 1;
             break;
         }
     }
 
-    
+    for (int i = destinationId; i > id; i--) {
+        int cur = cStation.distanceToSydney(i) - cStation.distanceToSydney(id); 
+        if (capacityRange >= cur && i != destinationId) {
+            count += 1;
+            break;
+        } 
+        
+    }
+    return count;
 }
 
 

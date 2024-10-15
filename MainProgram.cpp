@@ -55,7 +55,7 @@ int main()
     ChargingAllocation aCopy = aCopy2;
     double best = 100000.00;
     srand(time(0));
-    for (int i = 0; i < 2000; i++)
+    for (int i = 0; i < 5000; i++)
     {
         ChargingAllocation temp = aCopy;
 
