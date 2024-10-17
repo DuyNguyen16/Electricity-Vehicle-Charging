@@ -36,7 +36,7 @@ int main()
     displayText.displayChargingStation();
     for (int i = 0; i < NUM_CITIES; i++)
     {
-        cStations[i].display();
+        cStations[i].display(i);
     }
 
     // display the allocation
@@ -54,7 +54,7 @@ int main()
     currentChargingAllocation.incrementQueue();
     currentChargingAllocation.display();
 
-    cout << "Overall average waiting time per vehicle = " << currentChargingAllocation.calOverallAverage() << " hours" << endl;
+    cout << "\nOverall average waiting time per vehicle = " << currentChargingAllocation.calOverallAverage() << " hours\n" << endl;
     cout << "----------------------------------------------------------------------------------------" << endl;
     // Display the Monte Carlo simulation introduction text
     displayText.displayMonteCharloText();
@@ -104,7 +104,7 @@ int main()
     // Display the final overall average waiting time after Monte Carlo optimization
     displayText.displayChargingQueue();
     bestChargingAllocation .display();
-    cout << "Overall average waiting time per vehicle = " << bestChargingAllocation .calOverallAverage() << " hours" << endl;
+    cout << "\nOverall average waiting time per vehicle = " << bestChargingAllocation .calOverallAverage() << " hours" << endl;
 
     return 0;
 }

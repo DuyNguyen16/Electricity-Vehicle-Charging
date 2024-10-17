@@ -18,7 +18,7 @@ private:
     int NumOfQueue;
 public:
     ChargingStation(int i);
-    void display();
+    void display(int i);
     int distanceToSydney(int cityId);
 };
 
@@ -32,10 +32,10 @@ ChargingStation::ChargingStation(int i)
 };
 
 // display the information of the city
-void ChargingStation::display()
+void ChargingStation::display(int i)
 {
     cout << setw(5) << cityId << setw(25) << cityName
-         << setw(17) << distanceToLastCity << setw(22)
+         << setw(17) << distanceToSydney(i) << setw(22)
          << numberOfChargers << endl;
 }
 

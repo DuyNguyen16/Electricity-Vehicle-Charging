@@ -250,7 +250,7 @@ vector<int> Vehicle::randomChargingStation()
         }
     }
 
-    return {0, 0};
+    return {-1, -1};
 }
 
 // Generate a random number between min and max
@@ -267,7 +267,7 @@ int Vehicle::stationCount()
     int lastReachableStation = 0;
 
     // Determine how far the vehicle can go with the remaining range
-    for (int i = 0; i < destinationId; i++)
+    for (int i = 0; i <= destinationId; i++)
     {
         if (cStation.distanceToSydney(i) <= remainRange)
         {
@@ -281,17 +281,23 @@ int Vehicle::stationCount()
         }
     }
 
+    int distanceBetweenStations = cStation.distanceToSydney(destinationId) - cStation.distanceToSydney(lastReachableStation);
+
+    if (distanceBetweenStations <= capacityRange) {
+        return 1;
+    } else {
     // Check if an additional stop is needed for stations after the last reachable station
     for (int i = destinationId; i > lastReachableStation; i--)
     {
-        int distanceBetweenStations = cStation.distanceToSydney(i) - cStation.distanceToSydney(lastReachableStation);
+        distanceBetweenStations = cStation.distanceToSydney(i) - cStation.distanceToSydney(lastReachableStation);
 
         // If another stop is needed within range increase count
-        if (capacityRange >= distanceBetweenStations && i != destinationId)
+        if (capacityRange >= distanceBetweenStations)
         {
             count += 1;
             break;
         }
+    }
     }
     // Return the total number of stops
     return count;
