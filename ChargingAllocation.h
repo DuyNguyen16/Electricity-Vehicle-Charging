@@ -131,7 +131,6 @@ void ChargingAllocation::calwaitingHours()
 
 // Function to calculate the overall average waiting time across all cities
 double ChargingAllocation::calOverallAverage() {
-    calwaitingHours();
     double overallAvg = 0;
     double n = 0;
 

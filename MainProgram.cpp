@@ -52,6 +52,7 @@ int main()
     displayText.displayChargingQueue();
     // Simulate the charging queue based on the current allocation
     currentChargingAllocation.incrementQueue();
+    currentChargingAllocation.calwaitingHours();
     currentChargingAllocation.display();
 
     cout << "\nOverall average waiting time per vehicle = " << currentChargingAllocation.calOverallAverage() << " hours\n" << endl;
@@ -79,11 +80,12 @@ int main()
 
         // Simulate the charging queue based on the new random allocation
         tempChargingAllocation.incrementQueue();
+        tempChargingAllocation.calwaitingHours();
 
         // Calculate the overall average waiting time for this simulation iteration
-        double overallAvg = tempChargingAllocation .calOverallAverage();
+        double overallAvg = tempChargingAllocation.calOverallAverage();
 
-        // If this simulation produces a better (lower) waiting time, update the best allocation
+        // If this simulation produces a better (lower) waiting time, update    
         if (overallAvg < bestAverageWaitingTime)
         {
             bestAverageWaitingTime = overallAvg;
@@ -98,13 +100,13 @@ int main()
     displayText.displayAllocate();
     for (int i = 0; i < vehicles.size(); i++)
     {
-        bestChargingAllocation .getVehicles()[i].displayAllocate();
+        bestChargingAllocation.getVehicles()[i].displayAllocate();
     }
 
     // Display the final overall average waiting time after Monte Carlo optimization
     displayText.displayChargingQueue();
-    bestChargingAllocation .display();
-    cout << "\nOverall average waiting time per vehicle = " << bestChargingAllocation .calOverallAverage() << " hours" << endl;
+    bestChargingAllocation.display();
+    cout << "\nOverall average waiting time per vehicle = " << bestChargingAllocation.calOverallAverage() << " hours" << endl;
 
     return 0;
 }
