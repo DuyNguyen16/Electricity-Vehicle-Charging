@@ -37,9 +37,18 @@ public:
 // Constructor to initialize the ChargingAllocation
 ChargingAllocation::ChargingAllocation()
 {
+    int select;
+    cout << "Select Text File:" << endl;
+    cout << "1. Fixed Charging Station" << endl;
+    cout << "2. Random Charging Station" << endl;
+    cout << "Select ";
+    cin >> select;
     ifstream fin;
+    if (select == 1) {
     fin.open("ChargingDemands.txt");
-
+    } else if (select == 2) {
+        fin.open("./DemandGenerator/myChargingDemands.txt");
+    }
     // Check if the file opened successfully
     if (fin.fail())
     {
